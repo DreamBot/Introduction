@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../static/css/custom.css" />
+<script src="../static/js/jquery-1.7.2.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".leftpanel").on("click",".heading",function(){
+				$(this).toggleClass("unselected").next(".panel").toggleClass("collapsed");
+			}
+		).on("click","a",function(){
+				$(".mainContent>div").hide();
+				$("div"+$(this).attr("href")).show();
+			}
+		);
+		
+		$(".mainContent>div").hide().eq(0).show();
+		
+		$(".mainContent>div form").submit(function(){
+				var thisForm = $(this);
+				var formData = {};
+				$.map(thisForm.serializeArray(),function(ele){
+						formData[ele.name]=ele.value;
+					}
+				);
+				console.log(thisForm.serializeArray());
+				console.log(JSON.stringify(formData));
+				$.post(thisForm.attr("action"),thisForm.serializeArray(),function(data){
+						alert('Data recieved : '+data);	
+					}
+				);
+				return false;
+			}
+		);
+		
+	});
+</script>
+<title>IIST Home Page</title>
+</head>
+
+<body>
+<div class="body">
+    <div class="leftpanel">
+        <div class="heading mainHead">
+            <span>Student</span>
+        </div>
+        <div class="panel">
+            <a href="#addStudent">Add New Student</a>
+            <a href="#browseStudent">Browse Student</a>
+        </div>
+        <div class="heading mainHead">
+            <span>Course</span>
+        </div>
+        <div class="panel">
+            <a href="#addCourse">Add New Course</a>
+            <a href="#browseCourse">Browse Course</a>
+        </div>
+        <div class="heading mainHead">
+            <span>Payment</span>
+        </div>
+        <div class="panel">
+            <a href="#addPayment">Add New Payment Structure</a>
+            <a href="#browsePayment">Browse Payment Structure</a>
+        </div>
+        
+    </div>
+    
+
+	<div class="mainContent">
+    	<div id="addStudent" class="section"> 
+        	<form action="addStudent.spring" method="post" name="addUser">
+                <div class="tableStyle padded">
+                    <div class="rowStyle">
+                        <div class="dataStyle">First Name</div>
+                        <div class="dataStyle"><input type="text" name="firstName"/></div>
+                    </div>
+                    <div class="rowStyle">
+                        <div class="dataStyle">Last Name</div>
+                        <div class="dataStyle"><input type="text" name="lastName"/></div>
+                    </div>
+                    <div class="rowStyle">
+                        <div class="dataStyle">UserName</div>
+                        <div class="dataStyle"><input type="text"  name="userName"/></div>
+                        <div class="dataStyle small"><a>Check Availability</a></div>
+                    </div>
+                    <div class="rowStyle">
+                        <div class="dataStyle"><input type="submit" value="Add"/></div>
+                        <div class="dataStyle"><input type="reset" value="Reset"/></div>
+                    </div>
+                </div>
+ 			</form>       
+        </div>
+        <div id="browseStudent" class="section">
+        	<div class="tableStyle margin">
+                <div class="rowStyle">
+                	<div class="dataStyle">
+                    	<div class="tableStyle">
+                        	<div class="rowStyle">
+                                <div class="dataStyle">First Name</div>
+                                <div class="dataStyle"><input type="text" name="firstName"/></div>
+                            </div>
+                            <div class="rowStyle">
+                                <div class="dataStyle"><input type="button" value="Search"/></div>
+                                <div class="dataStyle"><input type="button" value="Reset"/></div>
+                            </div>
+                        </div>
+                    </div>
+                	<div class="dataStyle">
+                    	<div class="tableStyle">
+                        	<div class="rowStyle">
+                                <div class="dataStyle">Last Name</div>
+		                        <div class="dataStyle"><input type="text" name="lastName"/></div>
+                            </div>
+                            <div class="rowStyle">
+                                <div class="dataStyle">UserName</div>
+                                <div class="dataStyle"><input type="text"  name="userName"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class="tableStyle fullWidth">
+            	<div class="rowStyle">
+                	<div class="dataStyle border">
+                		<div class="floatLeft">Rohan Sharma</div>
+                        <div class="floatRight rightPadded">
+                        	<input type="button" value="Edit Student"/>
+                            <input type="button" value="Delete Student"/>
+                        </div>
+	                </div>	
+                </div>
+                <div class="rowStyle">
+                	<div class="dataStyle border">
+                		<div class="floatLeft">John Cena</div>
+                        <div class="floatRight rightPadded">
+                        	<input type="button" value="Edit Student"/>
+                            <input type="button" value="Delete Student"/>
+                        </div>
+	                </div>	
+                </div>
+                <div class="rowStyle">
+                	<div class="dataStyle border">
+                		<div class="floatLeft">Kunal</div>
+                        <div class="floatRight rightPadded">
+                        	<input type="button" value="Edit Student"/>
+                            <input type="button" value="Delete Student"/>
+                        </div>
+	                </div>	
+                </div>
+            </div>
+            
+        </div>
+        <div id="addCourse">Add Course</div>
+        <div id="browseCourse">Browse Course</div>
+        <div id="addPayment">Add Payment</div>
+        <div id="browsePayment">Browse Payment</div>
+    </div>
+</div>
+</body>
+</html>
